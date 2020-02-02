@@ -4,3 +4,7 @@ numpy
 gevent
 pillow
 h5py
+tensorflow-gpu
+tensor-hub
+keras
+pyocclient

@@ -17,7 +17,6 @@ from tensorflow.keras.preprocessing import image
 
 # Some utilites
 import numpy as np
-from util import np_to_base64
 from datetime import date
 
 
@@ -40,8 +39,6 @@ classes = ['Tomato___Bacterial_spot' ,  'Tomato___Septoria_leaf_spot',
     'Tomato___Leaf_Mold',       'Tomato___Tomato_Yellow_Leaf_Curl_Virus']
 
 def model_predict(img, model):
-
-    img = image.load_img(img)
     img = img.resize((224, 224))
     x = image.img_to_array(img)
     x = np.expand_dims(x, axis=0)
@@ -53,18 +50,18 @@ def model_predict(img, model):
 
 @app.route('/', methods=['GET'])
 def index():
-    # Main page
     return render_template('index.html')
 
 
 @app.route('/predict', methods=['GET'])
 def predict():
     today = date.today()
-    img = os.path.join(f'{today.day}-{today.month}',os.listdir(f'{today.day}-{today.month}')[0])
+    img_path = os.path.join(f'{today.day}-{today.month}',os.listdir(f'{today.day}-{today.month}')[0])
+    img = image.load_img(img_path)
     preds = model_predict(img, model)   
     pred_class = classes[np.argmax(preds)] 
     result = pred_class.replace('_', ' ').capitalize()
-    return jsonify(result=result,  img=np_to_base64(img))
+    return jsonify(result=result, img=img_path)
 
 
 

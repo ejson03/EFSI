@@ -1,17 +1,14 @@
-//========================================================================
-// Web page elements for functions to use
-//========================================================================
-
 var imageDisplay = document.getElementById("image-display");
 var predResult = document.getElementById("pred-result");
 
-function predictImage(image) {
+function predictImage() {
   fetch("/predict", {
     method: "GET",
     })
     .then(resp => {
       if (resp.ok)
         resp.json().then(data => {
+          displayImage(data.img, imageDisplay),
           displayResult(data);
         });
     })
@@ -41,3 +38,4 @@ function show(el) {
   // show an element
   el.classList.remove("hidden");
 }
+predictImage()
