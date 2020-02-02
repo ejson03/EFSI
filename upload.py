@@ -3,10 +3,12 @@ import os
 import numpy as np
 import owncloud
 from datetime import date, datetime
-
+with open('credentials.txt','r') as f:
+    f = f.read()
+    username, password = f.split(' ')
 def setup(today):
     oc = owncloud.Client('http://localhost/owncloud')
-    oc.login('wagner', 'qazwsxedcrfvt')
+    oc.login(username, password)
     folder = f'{today.day}-{today.month}'
     try:
         oc.mkdir(folder)

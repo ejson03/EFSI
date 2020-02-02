@@ -19,3 +19,5 @@ instance/
 # Editors
 .vscode/
 .idea/
+
+credentials.txt
