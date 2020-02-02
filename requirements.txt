@@ -1,0 +1,6 @@
+Werkzeug
+Flask
+numpy
+gevent
+pillow
+h5py
