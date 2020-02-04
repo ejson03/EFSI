@@ -1,5 +1,6 @@
 import os
 import sys
+import json
 
 # Flask
 from flask import Flask, redirect, url_for, request, render_template, Response, jsonify, redirect
@@ -18,10 +19,25 @@ from tensorflow.keras.preprocessing import image
 # Some utilites
 import numpy as np
 from datetime import date
-
+import owncloud
+import urllib.request
 
 # Declare a flask app
 app = Flask(__name__)
+
+with open('credentials.txt','r') as f:
+    f = f.read()
+    username, password = f.split(' ')
+
+def setup():
+    today = date.today()
+    oc = owncloud.Client('http://localhost/owncloud')
+    oc.login(username, password)
+    file = f'{today.day}-{today.month}/image.jpg'
+    link_info = oc.share_file_with_link(f'{file}')
+    link = link_info.get_link()[-15:]
+    link = f'http://localhost/owncloud/index.php/apps/files_sharing/ajax/publicpreview.php?x=1920&y=505&a=true&file=image.jpg&t={link}&scalingup=0'
+    return link
 
 # Model saved with Keras model.save()
 MODEL_PATH = 'models/tomato_model.h5'
@@ -50,22 +66,26 @@ def model_predict(img, model):
 
 @app.route('/', methods=['GET'])
 def index():
-    return render_template('index.html')
+    #today = date.today()
+    #img_path = os.path.join(f'{today.day}-{today.month}',os.listdir(f'{today.day}-{today.month}')[0])
+    link, url= setup()
+    if os.path.exists(f'{today.day}-{today.month}'):
+        os.mkdir(f'{today.day}-{today.month}')
+        os.chdir(f'{today.day}-{today.month}')
 
-
-@app.route('/predict', methods=['GET'])
-def predict():
-    today = date.today()
-    img_path = os.path.join(f'{today.day}-{today.month}',os.listdir(f'{today.day}-{today.month}')[0])
     img = image.load_img(img_path)
     preds = model_predict(img, model)   
     pred_class = classes[np.argmax(preds)] 
     result = pred_class.replace('_', ' ').capitalize()
-    return jsonify(result=result, img=img_path)
+    link=setup()
+    return render_template('index.html',user_image= link,response=json.dumps(result))
+
+
+
 
 
 
 if __name__ == '__main__':
     http_server = WSGIServer(('0.0.0.0', 5000), app)
     http_server.serve_forever()
-    predict()
+    index()

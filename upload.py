@@ -17,6 +17,8 @@ def setup(today):
         pass
     return oc, folder
 
+
+
 def capture(oc, folder):
     sec = 0
     cap = cv2.VideoCapture(0)
@@ -25,11 +27,10 @@ def capture(oc, folder):
             cap.set(cv2.CAP_PROP_POS_MSEC,sec*1000)
             hasFrames,image = cap.read()
             if hasFrames:
-                upload_file = f'{folder}/{datetime.now().strftime("%H-%M-%S")}.jpg'
+                upload_file = f'{folder}/image.jpg'
                 cv2.imwrite(upload_file, image)
                 oc.put_file(upload_file, upload_file)
-                link_info = oc.share_file_with_link(f'{upload_file}')
-                print ("Here is your link: " + link_info.get_link())
+                share_file(upload_file)
                 sec+=1
 
             if cv2.waitKey(1) & 0xFF == ord('q'):
