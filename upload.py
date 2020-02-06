@@ -17,8 +17,6 @@ def setup(today):
         pass
     return oc, folder
 
-
-
 def capture(oc, folder):
     sec = 0
     cap = cv2.VideoCapture(0)
