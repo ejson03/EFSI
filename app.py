@@ -66,13 +66,13 @@ def model_predict(img, model):
 
 @app.route('/', methods=['GET'])
 def index():
-    today = date.today()
+    #ztoday = date.today()
     #img_path = os.path.join(f'{today.day}-{today.month}',os.listdir(f'{today.day}-{today.month}')[0])
     link, url= setup()
     if os.path.exists(f'{today.day}-{today.month}'):
         os.mkdir(f'{today.day}-{today.month}')
         os.chdir(f'{today.day}-{today.month}')
-    img_path=link
+
     img = image.load_img(img_path)
     preds = model_predict(img, model)   
     pred_class = classes[np.argmax(preds)] 
