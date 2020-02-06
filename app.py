@@ -20,7 +20,9 @@ from tensorflow.keras.preprocessing import image
 import numpy as np
 from datetime import date
 import owncloud
-import urllib.request
+import requests
+import urllib
+import cv2
 
 # Declare a flask app
 app = Flask(__name__)
@@ -35,17 +37,14 @@ def setup():
     oc.login(username, password)
     file = f'{today.day}-{today.month}/image.jpg'
     link_info = oc.share_file_with_link(f'{file}')
+    url = link_info.get_link() + "/download"
     link = link_info.get_link()[-15:]
     link = f'http://localhost/owncloud/index.php/apps/files_sharing/ajax/publicpreview.php?x=1920&y=505&a=true&file=image.jpg&t={link}&scalingup=0'
     return link
 
-# Model saved with Keras model.save()
+
 MODEL_PATH = 'models/tomato_model.h5'
 MODEL_JSON = 'models/tomato_model.json'
-# with open(MODEL_JSON, 'r') as jsonf:
-#     model = jsonf.read()
-#     model = model_from_json(model)
-#     model.load_weights(MODEL_PATH)
 model = load_model(MODEL_PATH, custom_objects={'KerasLayer':hub.KerasLayer})
 model.summary()
 classes = ['Tomato___Bacterial_spot' ,  'Tomato___Septoria_leaf_spot',
@@ -55,7 +54,7 @@ classes = ['Tomato___Bacterial_spot' ,  'Tomato___Septoria_leaf_spot',
     'Tomato___Leaf_Mold',       'Tomato___Tomato_Yellow_Leaf_Curl_Virus']
 
 def model_predict(img, model):
-    img = img.resize((224, 224))
+    img = cv2.resize(img,(224,224))
     x = image.img_to_array(img)
     x = np.expand_dims(x, axis=0)
     x = preprocess_input(x, mode='tf')
@@ -67,17 +66,25 @@ def model_predict(img, model):
 @app.route('/', methods=['GET'])
 def index():
     today = date.today()
-    #img_path = os.path.join(f'{today.day}-{today.month}',os.listdir(f'{today.day}-{today.month}')[0])
-    link, url= setup()
-    if os.path.exists(f'{today.day}-{today.month}'):
+    link = setup()
+    if not os.path.exists(f'{today.day}-{today.month}'):
         os.mkdir(f'{today.day}-{today.month}')
-        os.chdir(f'{today.day}-{today.month}')
-    img_path=link
-    img = image.load_img(img_path)
-    preds = model_predict(img, model)   
+
+    # image = requests.get(link)
+    # with iopen(f'{today.day}-{today.month}/image.jpg', "wb") as file:
+    #     file.write(image.content)
+
+    # img_path = os.path.join(f'{today.day}-{today.month}', 'image.jpg')
+    #with open(f'{today.day}-{today.month}/image.jpg', "rb") as file:
+
+    image = urllib.request.urlopen(link)
+    image = np.asarray(bytearray(image.read()), dtype="uint8")
+    image = cv2.imdecode(image, cv2.IMREAD_COLOR)
+    print(image.shape)
+
+    preds = model_predict(image, model)   
     pred_class = classes[np.argmax(preds)] 
     result = pred_class.replace('_', ' ').capitalize()
-    link=setup()
     return render_template('index.html',user_image= link,response=json.dumps(result))
 
 
@@ -85,4 +92,3 @@ if __name__ == '__main__':
     http_server = WSGIServer(('0.0.0.0', 5000), app)
     http_server.serve_forever()
     index()
-    #app.run(debug=True)

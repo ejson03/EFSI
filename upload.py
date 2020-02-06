@@ -6,16 +6,21 @@ from datetime import date, datetime
 with open('credentials.txt','r') as f:
     f = f.read()
     username, password = f.split(' ')
+
 def setup(today):
     oc = owncloud.Client('http://localhost/owncloud')
     oc.login(username, password)
+    
     folder = f'{today.day}-{today.month}'
     try:
         oc.mkdir(folder)
-        os.mkdir(folder)
+        os.makedirs(folder)
     except:
+        print("File not cretaed")
         pass
     return oc, folder
+
+
 
 def capture(oc, folder):
     sec = 0
@@ -28,7 +33,6 @@ def capture(oc, folder):
                 upload_file = f'{folder}/image.jpg'
                 cv2.imwrite(upload_file, image)
                 oc.put_file(upload_file, upload_file)
-                share_file(upload_file)
                 sec+=1
 
             if cv2.waitKey(1) & 0xFF == ord('q'):
