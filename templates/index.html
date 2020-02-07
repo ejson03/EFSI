@@ -1,42 +1,161 @@
-<!DOCTYPE html>
-<html lang='en'>
-<head>
-    <meta charset='utf-8'>
-    <link rel='stylesheet' href='../static/main.css'>
-   
-</head>
-<body>
-<div>
-    <div class='center'>
-        <div class='title'>Plant Disease Detector</div>
-        <p>
-             <strong>Picture for a plant diagnostic</strong> 
-        </p>
-        <div class='content'>
-            <div>
-                <img id='image-picked' src=" {{ user_image }} ">
-            </div>
-            <div class='analyze'>
-                <button id='analyze-button' class='analyze-button' type='button' onclick='analyze()'>Analyze</button>
-            </div>
-            <div class='result-label'>
-              <h3> Prediction : </h3>
-                <label id='result-label'> {{ response }} </label>
-            </div>
-        </div>
-    </div>
-</div>
-<script >
-function analyze() {
-  var x = document.getElementById("result-label");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-}
+<!DOCTYPE HTML>
+<!--
+	Binary by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+	<head>
+		<title> eFSI </title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="/static/css/main.css" />
+	</head>
+	<body>
 
-</script>
+		<!-- Header -->
+			<header id="header">
+				<a href="/" class="logo"><strong>eFSI</strong> </a>
+				<nav>
+					<a href="#menu">Menu</a>
+				</nav>
+			</header>
 
-</body>
+		<!-- Nav -->
+			<nav id="menu">
+				<ul class="links">
+					<li><a href="/">HOME</a></li>
+					<li><a href="/generic">ANALYSIS</a></li>
+				</ul>
+			</nav>
+
+		<!-- Banner -->
+			<section id="banner">
+				<div class="inner">
+					<h1>  eFSI PROJECT 
+						<br></br>
+						(e-Yantra Farm Setup Initiative, IIT Bombay  )</h1>
+					<ul class="actions">
+						<li><a href="#one" class="button alt scrolly big">Continue</a></li>
+					</ul>
+				</div>
+			</section>
+
+		<!-- One -->
+			<article id="one" class="post style1">
+				<div class="image">
+					<img src="/static/images/pic5.jpeg" alt="" />
+				</div>
+				<div class="content">
+					<div class="inner">
+						<header>
+							<h2> ABOUT k-Yantra  </a></h2>
+						</header>
+						<p> Develops a know-how for setting up an automated agriculture project – test bed for addressing real world problem and hands-on learning for students on application of what they learnt in theory through a fun and productive exercise
+							This entails first generating the soil through a recycling waste and resource recovery of garden and kitchen waste which is in sync with the municipal solid waste management agenda of both central and state government.
+							Plan and execute the creation of beds for growing plants.Making the little gadgets, tools, the networking for maintaining and monitoring the growth of plants.</p>
+						
+					</div>
+					<div class="postnav">
+						<a href="#" class="prev disabled"><span class="icon fa-chevron-up"></span></a>
+						<a href="#two" class="scrolly next"><span class="icon fa-chevron-down"></span></a>
+					</div>
+				</div>
+			</article>
+
+		<!-- Two -->
+			<article id="two" class="post invert style1 alt">
+				<div class="image">
+					<img src="/static/images/pic9.jpg" alt=""  />
+				</div>
+				<div class="content">
+					<div class="inner">
+						<header>
+							<h2> ENGAGEMENT ROLE </a></h2>
+							
+						</header>
+						<p>k-Yantra project develops know-how for setting up an automated agriculture project testbed to address real world problem and hands-on learning for students to apply theory in a fun and productive manner.
+							This entails first generating a rich growing medium (soil) through recycling dry biomass (leaves) and resource recovery of garden and kitchen waste which is in sync with the municipal solid waste management agenda of both the central and state government and consistent with “Swach Bharat.
+							Plan and execute the creation of beds for growing plants.Making the gadgets, tools, networked devices for maintaining and monitoring the growth of plants </p>
+					</div>
+					<div class="postnav">
+						<a href="#one" class="scrolly prev"><span class="icon fa-chevron-up"></span></a>
+						<a href="#three" class="scrolly next"><span class="icon fa-chevron-down"></span></a>
+					</div>
+				</div>
+			</article>
+
+		<!-- Three -->
+			<article id="three" class="post style2 ">
+				<div class="image">
+					<img src="/static/images/pic10.jpeg" alt=""  />
+				</div>
+				<div class="content " >
+					<div class="inner" >
+						<header>
+							<h2> e-Yantra Role ? </h2>
+						</header>
+						<ul class="actions " ></ul>
+							<li>e-Yantra transfers this know-how​ to interested eFSI colleges. This project seeds a live demo project in the eFSI college where students “own” this project which serves as a base for original B.E. projects.</li>
+							<li>Complete hand-holding in the setting up of the demo-project ​in the college premises for a fixed period of time.</li>
+							<li>Providing documented procedures for the various steps involved.</li>
+							<li>Provide a list of required materials​, consumables etc for setting up the test bed.</li>
+							<li>One day workshop ​at the premises of the college after the college identifies space.</li>
+						</ul>
+					</div>
+					<div class="postnav">
+						<a href="#two" class="scrolly prev"><span class="icon fa-chevron-up"></span></a>
+						<a href="#four" class="scrolly next"><span class="icon fa-chevron-down"></span></a>
+					</div>
+				</div>
+			</article>
+
+		<!-- Six -->
+			<article id="six" class="post invert style3 alt">
+				<div class="image">
+					<img src="/static/images/pic12.jpeg" alt="" data-position="80% center" />
+				</div>
+				<div class="content">
+					<div class="inner">
+						<header>
+							<h2> THE TEAM </h2>
+							
+						</header>
+						<ul class="actions"></ul>
+						<p>The team comprises of 4 teachers and 5 students 
+							
+								<li> Prof. Supriya Kamoji </li>
+								<li> Prof. Ashwini Pansare </li>
+								<li> Prof. Dipali </li>
+								<li> Prof. Monalo Shetty </li>
+								<li> Vedant Sahai ( TE Comps )</li>
+								<li> Elvis Dsouza ( TE Comps )</li>
+								<li> Pratik Chowdhury ( TE Comps )</li>
+								<li> Edison Aluraj ( BE Elex )</li>
+								<li> Kenneth Dsliva ( BE Elex )</li>	
+								
+							</ul>
+					</div>
+					<div class="postnav">
+						<a href="#five" class="scrolly prev"><span class="icon fa-chevron-up"></span></a>
+						<a href="#" class="scrolly next disabled"><span class="icon fa-chevron-down"></span></a>
+					</div>
+				</div>
+			</article>
+
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="copyright">
+					&copy; copyright. Design: FrCRCE</a>. 
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="/static/js/jquery.min.js"></script>
+			<script src="/static/js/jquery.scrolly.min.js"></script>
+			<script src="/static/js/skel.min.js"></script>
+			<script src="/static/js/util.js"></script>
+			<script src="/static/js/main.js"></script>
+
+	</body>
 </html>

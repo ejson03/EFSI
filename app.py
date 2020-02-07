@@ -39,7 +39,7 @@ def setup():
     link_info = oc.share_file_with_link(f'{file}')
     url = link_info.get_link() + "/download"
     link = link_info.get_link()[-15:]
-    link = f'http://localhost/owncloud/index.php/apps/files_sharing/ajax/publicpreview.php?x=1920&y=505&a=true&file=image.jpg&t={link}&scalingup=0'
+    link = f'http://localhost/owncloud/index.php/apps/files_sharing/ajax/publicpreview.php?x=1400&y=688&a=true&file=image.jpg&t={link}&scalingup=0'
     return link
 
 
@@ -62,9 +62,12 @@ def model_predict(img, model):
    
     return preds
 
-
 @app.route('/', methods=['GET'])
 def index():
+    return render_template('index.html')
+
+@app.route('/generic', methods=['GET'])
+def predict():
     today = date.today()
     link = setup()
     if not os.path.exists(f'{today.day}-{today.month}'):
@@ -81,14 +84,14 @@ def index():
     image = np.asarray(bytearray(image.read()), dtype="uint8")
     image = cv2.imdecode(image, cv2.IMREAD_COLOR)
     print(image.shape)
-
     preds = model_predict(image, model)   
     pred_class = classes[np.argmax(preds)] 
     result = pred_class.replace('_', ' ').capitalize()
-    return render_template('index.html',user_image= link,response=json.dumps(result))
+    return render_template('generic.html',user_image= link,response=json.dumps(result))
 
 
 if __name__ == '__main__':
     http_server = WSGIServer(('0.0.0.0', 5000), app)
     http_server.serve_forever()
     index()
+    predict()

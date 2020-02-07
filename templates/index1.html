@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='utf-8'>
+    <link rel='stylesheet' href='../static/main.css'>
+   
+</head>
+<body>
+<div>
+    <div class='center'>
+        <div class='title'>Plant Disease Detector</div>
+        <div class='content'>
+            <div>
+                <img id='image-picked' src=" {{ user_image }} ">
+            </div>
+            <div class='analyze'>
+                <button id='analyze-button' class='analyze-button' type='button' onclick='analyze()'>Analyze</button>
+            </div>
+            <div class='result-label'  id='result-label' style="display: none;">
+              <h3> Prediction : </h3>
+                <label> {{ response }} </label>
+            </div>
+        </div>
+    </div>
+</div>
+<script >
+function analyze() {
+  var x = document.getElementById("result-label");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+
+</script>
+
+</body>
+</html>
