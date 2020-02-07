@@ -21,3 +21,4 @@ instance/
 .idea/
 
 credentials.txt
+[0-9]*-[0-9]*/
