@@ -5,6 +5,6 @@ gevent
 pillow
 h5py
 tensorflow-gpu
-tensor-hub
+tensorflow-hub
 keras
 pyocclient

@@ -2270,7 +2270,7 @@
 	}
 
 		.image img {
-			display: block;
+			
 		}
 
 		.image.left, .image.right {
@@ -2300,7 +2300,7 @@
 		}
 
 			.image.fit img {
-				width: 100%;
+				
 			}
 
 		.image.main {
